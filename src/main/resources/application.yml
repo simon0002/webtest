@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://127.0.0.1:3306/laravel56?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # default-auto-commit: false
+
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 15
+      max-lifetime: 1200000 #不小于30s 否则会回到默认的1800秒
+      idle-timeout: 30000
+
+
+
+mybatis:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: com.example.webtest.entity
+
+#showSql
+logging:
+  level:
+    com:
+      example:
+        mapper : debug

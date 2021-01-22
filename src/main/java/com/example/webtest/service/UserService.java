@@ -5,6 +5,8 @@ import com.example.webtest.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
     @Autowired
@@ -20,5 +22,17 @@ public class UserService {
 
     public User getUserByName(String userName){
         return userDao.getByName(userName);
+    }
+
+    public List<User> list(User user){
+        return userDao.list(user);
+    }
+
+    public List<User> lists(){
+        return userDao.lists();
+    }
+
+    public Integer count(){
+        return userDao.count();
     }
 }

@@ -13,10 +13,20 @@
         select * from user where id = #{id}
     </select>
 
+    <select id="list" resultMap="BaseResultMap">
+        select * from user
+        <if test="start != null or end != null">
+            limit #{start}, #{end}
+        </if>
+
+    </select>
+
     <insert id="Add">
         insert into user (userName, passWord, realName) values (
         #{userName}, #{passWord}, #{realName}
         )
     </insert>
+
+
 
 </mapper>

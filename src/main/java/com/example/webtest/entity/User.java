@@ -1,6 +1,6 @@
 package com.example.webtest.entity;
 
-public class User {
+public class User extends Base {
     private Integer id;
     private String userName;
     private String passWord;

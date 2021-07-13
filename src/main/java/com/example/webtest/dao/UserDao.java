@@ -11,9 +11,9 @@ public interface UserDao {
 
     User Sel(Integer id);
 
-    boolean Add(String userName, String passWord, String realName);
+    boolean Add(String userName, String passWord, String email);
 
-    @Select("select * from user where userName = #{userName} limit 1")
+    @Select("select * from user where username = #{userName} limit 1")
     User getByName(String userName);
 
     //@Select("select * from user limit #{start}, #{end}")

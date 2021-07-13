@@ -4,9 +4,9 @@
 
     <resultMap id="BaseResultMap" type="com.example.webtest.entity.User">
         <result column="id" jdbcType="INTEGER" property="id" />
-        <result column="userName" jdbcType="VARCHAR" property="userName" />
-        <result column="passWord" jdbcType="VARCHAR" property="passWord" />
-        <result column="realName" jdbcType="VARCHAR" property="realName" />
+        <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
     </resultMap>
 
     <select id="Sel" resultMap="BaseResultMap">
@@ -22,8 +22,8 @@
     </select>
 
     <insert id="Add">
-        insert into user (userName, passWord, realName) values (
-        #{userName}, #{passWord}, #{realName}
+        insert into user (username, password, email) values (
+        #{userName}, #{passWord}, #{email}
         )
     </insert>
 

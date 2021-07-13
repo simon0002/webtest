@@ -172,17 +172,17 @@
 									<thead>
 										<tr>
 											<th>id</th>
-											<th class="d-none d-xl-table-cell">userName</th>
-											<th class="d-none d-xl-table-cell">passWord</th>
-											<th class="d-none d-md-table-cell">realName</th>
+											<th class="d-xl-table-cell">userName</th>
+											<th class="d-xl-table-cell">passWord</th>
+											<th class="d-md-table-cell">email</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr th:each="user : ${users}">
 											<td th:text="${user.id}"></td>
-											<td class="d-none d-xl-table-cell" th:text="${user.userName}"></td>
-											<td class="d-none d-xl-table-cell" th:text="${user.passWord}"></td>
-											<td class="d-none d-md-table-cell" th:text="${user.realName}"></td>
+											<td class="d-xl-table-cell" th:text="${user.username}"></td>
+											<td class="d-xl-table-cell" th:text="${user.password}"></td>
+											<td class="d-md-table-cell" th:text="${user.email}"></td>
 										</tr>
 
 									</tbody>

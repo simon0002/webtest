@@ -10,7 +10,8 @@
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>webtest</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
+	<packaging>war</packaging>
 	<name>webtest</name>
 	<description>Demo project for Spring Boot</description>
 
@@ -47,6 +48,17 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>javax.net.websocket</groupId>
+			<artifactId>javax.net.websocket-api</artifactId>
+			<version>1.0-b08</version>
+			<scope>provided</scope>
+		</dependency>
+		<!--		<dependency>-->
+		<!--			<groupId>org.springframework.boot</groupId>-->
+		<!--			<artifactId>spring-boot-starter-tomcat</artifactId>-->
+		<!--			<scope>provided</scope>-->
+		<!--		</dependency>-->
 	</dependencies>
 
 	<build>
@@ -62,6 +74,22 @@
 				<version>2.22.2</version>
 				<configuration>
 					<testFailureIgnore>true</testFailureIgnore>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.6.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>java</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<classpathScope>compile</classpathScope>
 				</configuration>
 			</plugin>
 		</plugins>

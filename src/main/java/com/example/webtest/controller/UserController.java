@@ -1,5 +1,7 @@
 package com.example.webtest.controller;
 
+import ch.qos.logback.core.BasicStatusManager;
+import com.example.webtest.dao.UserDao;
 import com.example.webtest.entity.User;
 import com.example.webtest.service.UserService;
 import com.example.webtest.util.PageUtil;
@@ -12,21 +14,24 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private UserDao userDao;
     protected List<User> users;
 
     @RequestMapping("/getUser/{id}")
     public String GetUser(@PathVariable int id, Model model) {
-        User user = userService.getUser(id);
+        User user = this.userDao.Sel(id);
+        List<User> userlist = new ArrayList<>();
+        userlist.add(user);
 
-        model.addAttribute("users", user);
-        //System.out.println(str);
+        model.addAttribute("users", userlist);
+        System.out.println(userlist);
         return "first";
     }
 
@@ -37,13 +42,13 @@ public class UserController {
                            Model model) {
 
         //列表分页
-        int rows = userService.count();
+        int rows = this.userDao.count();
         //System.out.println(pageCount);System.out.println(user.getStart());
         int pageCount = rows % pageSize == 0 ? (rows / pageSize) : (rows / pageSize) + 1;
         user.setStart((pageCurrent - 1) * pageSize);
         user.setEnd(pageSize);
 
-        users = userService.list(user);
+        users = this.userDao.list(user);
         String pageHTML = PageUtil.getPageContent("userList_{pageCurrent}_{pageSize}", pageCurrent, pageSize, pageCount);
 
         model.addAttribute("pageHTML", pageHTML);
@@ -62,7 +67,7 @@ public class UserController {
                            @RequestParam(value = "username", required = true) String userName,
                            @RequestParam(value = "password", required = true) String passWord,
                            @RequestParam(value = "realname") String realName) {
-        userService.addUser(userName, passWord, realName);
+        this.userDao.Add(userName, passWord, realName);
         return "ok";
     }
 
@@ -82,10 +87,10 @@ public class UserController {
                           @RequestParam(value = "username", required = true) String userName,
                           @RequestParam(value = "password", required = true) String passWord) throws Exception {
 
-        User user = userService.getUserByName(userName);
+        User user = this.userDao.getByName(userName);
         if(user != null){
             System.out.print(user);
-            String upw = user.getPassWord();
+            String upw = user.password;
             if(!upw.equals(passWord)){
                 System.out.print(upw);
                 System.out.print(passWord);
@@ -116,10 +121,18 @@ public class UserController {
     @ResponseBody
     public Object UserList(User user) {
 
-        users = userService.lists();
+        users = this.userDao.lists();
         //System.out.println(str);
         ResponseUtil responseUtil = new ResponseUtil(0, null, users, "Ok");
         return responseUtil;
+    }
+
+    @RequestMapping("/websocket")
+    public String wspage(Model model) {
+        //SocketController ws = new SocketController();
+        //ws.test();
+
+        return "ws";
     }
 
     @RequestMapping("/testThread")
